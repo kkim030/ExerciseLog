@@ -27,3 +27,15 @@ As an individual who felt lost when I first walked into gym, I wanted to provide
 simple gym movements. This app can help individuals stay on track and plan out your workout week easily without 
 having to search for gym routines constantly. Keep yourself accountable and become and better, stronger self that
 you dreamed of! 
+
+USER STORIES:
+
+- As a user, I want to view the list of fitness program offered
+
+- As a user, I want to select the fitness program and view the program in details
+- As a user, I want to start the stop watch and stop when viewing the program the details
+- As a user, when I press complete in the program details, I want to add a complete stamp on the monthly calendar
+- As a user, I want the user to be able to manually add complete stamp on the monthly calendar
+- As a user, I want the user to be able to delete the stamp on the monthly calendar
+- As a user, I want the user to write in pounds how much they have lifted under the profile page, and be able to view 
+the historical list.
