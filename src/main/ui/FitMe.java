@@ -23,6 +23,8 @@ public class FitMe {
     private Profile myProfile;
     private DayLog newDayLog;
     private boolean runProgram;
+    private Random rand = new Random();
+
 
 
     // EFFECTS: runs the FitMe application
@@ -130,7 +132,6 @@ public class FitMe {
     private void addDayLog() {
         while (true) {
             try {
-                Random rand = new Random();
                 int upperbound = 100;
                 System.out.println("Where did you work on? Please input one of - PUSH, PULL, LEG, GLUTES:");
                 ExerciseType exercise = ExerciseType.valueOf(input.nextLine());
@@ -176,7 +177,7 @@ public class FitMe {
             try {
                 int logNumber = input.nextInt();
                 myProfile.removeLog(logNumber);
-                System.out.println("Log successfully removed.");
+                System.out.println("Log updated as per request.");
                 printInstructions();
                 break;
             } catch (Exception e) {
