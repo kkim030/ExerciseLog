@@ -31,7 +31,7 @@ Keep yourself accountable to become and better, stronger self that you dreamed o
 USER STORIES:
 
 - As a user, I want to be able to generate a personal profile.
-- As a user, I want to log my daily workouts under my personal profile.
+- As a user, I want to log multiple daily workouts under my personal profile.
 - As a user, I want to view all the past daily workouts details and count to track the total workouts performed.
 - As a user, I want to delete an entry I have logged in previously.
 
