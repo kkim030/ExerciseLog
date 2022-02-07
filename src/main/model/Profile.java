@@ -35,11 +35,6 @@ public class Profile {
         return this.exerciseLog;
     }
 
-    //MODIFIES: this
-    //EFFECT: makes a new profile
-    public void newProfile(String name, int age, int weight) {
-        new Profile(name, age, weight);
-    }
 
     // MODIFIES: this
     // EFFECTS: consumes an exerciseLog (represented as a ExerciseType) object, and adds it to the exerciselog
