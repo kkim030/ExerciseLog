@@ -46,6 +46,7 @@ public class DayLog {
         return logNumber;
     }
 
+    //EFFECT: returns a string representation of date
     public String printDate() {
         return getMonth() + "/" + getDay() + "/" + getYear();
     }

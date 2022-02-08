@@ -5,7 +5,7 @@
 Workout with the Fit!Me Program!
 
 Transform your fitness routine at gym and achieve your fitness goal step by step by organizing your routine 
-in your own personal fitness app!
+in your own personal fitness diary app!
 
 ###New to Fit!Me? 
 

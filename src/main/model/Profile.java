@@ -37,11 +37,13 @@ public class Profile {
 
 
     // MODIFIES: this
-    // EFFECTS: consumes an exerciseLog (represented as a ExerciseType) object, and adds it to the exerciselog
+    // EFFECTS: consumes an exerciseLog (represented as a ExerciseType) object, and adds it to the
+    // exercise log
     public void addExerciseLog(DayLog log) {
         this.exerciseLog.add(log);
     }
 
+    // REQUIRES: exerciseLog must be a non-empty list
     // MODIFIES: this
     // EFFECTS: removes an exercise log with the logNumber from the list of exercise logs.
     public boolean removeLog(int logNumber) {

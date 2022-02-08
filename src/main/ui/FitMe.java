@@ -23,11 +23,11 @@ public class FitMe {
     private Profile myProfile;
     private DayLog newDayLog;
     private boolean runProgram;
-    private Random rand = new Random();
+    private Random rand = new Random(); //****
 
 
-
-    // EFFECTS: runs the FitMe application
+    //EFFECTS: runs the FitMe application
+    //REFERENCE: FitLifeGymKiosk Code
     public FitMe() {
         input = new Scanner(System.in);
         runProgram = true;
@@ -52,6 +52,7 @@ public class FitMe {
 
     // MODIFIES: this
     // EFFECTS: processes user input until user quits
+    //REFERENCE: FitLifeGymKiosk Code
     private void runFitMe() {
         printWelcomeMessage();
         generateProfile();
@@ -61,6 +62,7 @@ public class FitMe {
 
 
     //EFFECTS: parses user input until user quits
+    //REFERENCE: FitLifeGymKiosk Code
     public void handleUserInput() {
         String str;
         while (runProgram) {
@@ -73,6 +75,7 @@ public class FitMe {
     }
 
     //EFFECTS: prints menu options and info depending on input str
+    //REFERENCE: FitLifeGymKiosk Code
     private void parseInput(String str) {
         if (str.length() > 0) {
             switch (str) {
@@ -100,7 +103,7 @@ public class FitMe {
     }
 
     //MODIFIES: this
-    //EFFECTS: generate profile
+    //EFFECTS: generates new profile. If wrong input, starts again.
     private void generateProfile() {
         while (true) {
             try {
@@ -128,6 +131,7 @@ public class FitMe {
         System.out.println(("    - Weight: " + myProfile.getWeight() + "ibs"));
     }
 
+    //MODIFIES: this *****************
     //EFFECT: Make new DayLog.
     private void addDayLog() {
         while (true) {
@@ -170,11 +174,14 @@ public class FitMe {
         printInstructions();
     }
 
+    //REQUIRES: log number from past exercise log already saved.
+    //MODIFIES: this
+    //EFFECT: removes a previous log entry. If wrong log number entered, goes back to main menu.
     private void deleteDayLog() {
-        System.out.println("Please enter the log number of the entry you would like to delete. If uncertain, please "
-                + "view all events by typing 'e'");
         while (true) {
             try {
+                System.out.println("Please enter the log number of the entry you would like to delete. If uncertain, "
+                        + "please view all events by typing 'e'");
                 int logNumber = input.nextInt();
                 myProfile.removeLog(logNumber);
                 System.out.println("Log updated as per request.");
@@ -187,17 +194,18 @@ public class FitMe {
         }
     }
 
-    //EFFECTS: removes white space and quotation marks around s
-    private String makePrettyString(String s) {
-        s = s.toLowerCase();
-        s = s.trim();
-        s = s.replaceAll("\"|\'", "");
-        return s;
+    //EFFECTS: removes white space and quotation marks around string input.
+    //REFERENCE: FitLifeGymKiosk Code
+    private String makePrettyString(String stringInput) {
+        stringInput = stringInput.toLowerCase();
+        stringInput = stringInput.trim();
+        stringInput = stringInput.replaceAll("\"|\'", "");
+        return stringInput;
     }
 
     //EFFECTS: stops receiving user input
     public void endProgram() {
-        System.out.println("Quitting...");
+        System.out.println("Thank you and come back!");
         input.close();
     }
 }
