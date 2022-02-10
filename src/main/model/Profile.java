@@ -35,7 +35,6 @@ public class Profile {
         return this.exerciseLog;
     }
 
-
     // MODIFIES: this
     // EFFECTS: consumes an exerciseLog (represented as a ExerciseType) object, and adds it to the
     // exercise log

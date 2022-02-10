@@ -9,9 +9,7 @@ import model.Profile;
 import java.util.Scanner;
 import java.util.Random;
 
-
 public class FitMe {
-
 
     private static final String VIEW_PROFILE = "v";
     private static final String ADD_NEW_DAYLOG = "a";
@@ -23,8 +21,7 @@ public class FitMe {
     private Profile myProfile;
     private DayLog newDayLog;
     private boolean runProgram;
-    private Random rand = new Random(); //****
-
+    private Random rand = new Random();
 
     //EFFECTS: runs the FitMe application
     //REFERENCE: FitLifeGymKiosk Code
@@ -60,7 +57,6 @@ public class FitMe {
         handleUserInput();
     }
 
-
     //EFFECTS: parses user input until user quits
     //REFERENCE: FitLifeGymKiosk Code
     public void handleUserInput() {
@@ -68,13 +64,13 @@ public class FitMe {
         while (runProgram) {
             if (input.hasNext()) {
                 str = input.nextLine();
-                str = makePrettyString(str);
                 parseInput(str);
             }
         }
     }
 
-    //EFFECTS: prints menu options and info depending on input str
+    //MODIFIES: this
+    //EFFECTS: prints menu options and info depending on input string
     //REFERENCE: FitLifeGymKiosk Code
     private void parseInput(String str) {
         if (str.length() > 0) {
@@ -131,19 +127,19 @@ public class FitMe {
         System.out.println(("    - Weight: " + myProfile.getWeight() + "ibs"));
     }
 
-    //MODIFIES: this *****************
-    //EFFECT: Make new DayLog.
+    //MODIFIES: this
+    //EFFECT: Make new DayLog. If invalid, prints statement to note the entered input it wrong and restarts.
     private void addDayLog() {
         while (true) {
             try {
                 int upperbound = 100;
                 System.out.println("Where did you work on? Please input one of - PUSH, PULL, LEG, GLUTES:");
                 ExerciseType exercise = ExerciseType.valueOf(input.nextLine());
-                System.out.println("Input day of the month (format: %%):");
+                System.out.println("Input day of the month (format: DD):");
                 int day = input.nextInt();
-                System.out.println("Input today's month (format: %%):");
+                System.out.println("Input today's month (format: MM):");
                 int month = input.nextInt();
-                System.out.println("Input today's year (format: %%%%):");
+                System.out.println("Input today's year (format: YYYY):");
                 int year = input.nextInt();
                 System.out.println("Notes:");
                 input.nextLine();
@@ -159,7 +155,7 @@ public class FitMe {
         }
     }
 
-    //EFFECT: view historical day long
+    //EFFECT: view historical exercise day logs and counts how many days you have exercised.
     private void viewDayLog() {
         System.out.println("You have exercised the following dates: (Month/Day/Year)");
         if (myProfile.getExerciseLog().isEmpty()) {
@@ -174,9 +170,9 @@ public class FitMe {
         printInstructions();
     }
 
-    //REQUIRES: log number from past exercise log already saved.
     //MODIFIES: this
-    //EFFECT: removes a previous log entry. If wrong log number entered, goes back to main menu.
+    //EFFECT: By inputting log number of past day log, removes the particular entry.
+    //        If wrong log number entered, goes back to main menu.
     private void deleteDayLog() {
         while (true) {
             try {
@@ -194,16 +190,7 @@ public class FitMe {
         }
     }
 
-    //EFFECTS: removes white space and quotation marks around string input.
-    //REFERENCE: FitLifeGymKiosk Code
-    private String makePrettyString(String stringInput) {
-        stringInput = stringInput.toLowerCase();
-        stringInput = stringInput.trim();
-        stringInput = stringInput.replaceAll("\"|\'", "");
-        return stringInput;
-    }
-
-    //EFFECTS: stops receiving user input
+    //EFFECTS: stops the program.
     public void endProgram() {
         System.out.println("Thank you and come back!");
         input.close();

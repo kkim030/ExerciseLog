@@ -1,6 +1,6 @@
 # Fit!Me Program
 
-## A Fitness Program designed for healthier and stronger you!
+## A Fitness Diary designed for healthier and stronger you!
 
 Workout with the Fit!Me Program!
 
