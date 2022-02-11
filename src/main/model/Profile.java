@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// Profile information for the person's personal information including exercise logs
 public class Profile {
 
     private String name;

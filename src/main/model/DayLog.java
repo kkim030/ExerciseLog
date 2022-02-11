@@ -2,6 +2,7 @@ package model;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+// DayLog is each exercise diary logged under the profile
 public class DayLog {
 
     private String notes;
@@ -10,7 +11,6 @@ public class DayLog {
     private int year;
     private ExerciseType type;
     private int logNumber;
-    private Profile mainprofile;
 
     public DayLog(ExerciseType type, int day, int month, int year, String notes, int logNumber) {
         this.type = type;

@@ -1,8 +1,8 @@
-# Fit!Me Program
+# Fit!Me Diary
 
 ## A Fitness Diary designed for healthier and stronger you!
 
-Workout with the Fit!Me Program!
+Workout with the Fit!Me Diary!
 
 Transform your fitness routine at gym and achieve your fitness goal step by step by organizing your routine 
 in your own personal fitness diary app!
