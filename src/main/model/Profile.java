@@ -1,18 +1,22 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Profile information for the person's personal information including exercise logs
-public class Profile {
+public class Profile implements Writable {
 
     private String name;
-    private int age;
-    private int weight;
+    private String age;
+    private String weight;
     private ArrayList<DayLog> exerciseLog;
     private DayLog daylog;
 
-    public Profile(String name, int age, int weight) {
+    public Profile(String name, String age, String weight) {
         this.name = name;
         this.age = age;
         this.weight = weight;
@@ -24,11 +28,11 @@ public class Profile {
         return this.name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return this.age;
     }
 
-    public int getWeight() {
+    public String getWeight() {
         return this.weight;
     }
 
@@ -63,6 +67,29 @@ public class Profile {
             count++;
         }
         return count;
+    }
+
+    @Override
+    //EFFECT: returns name and daylogs to JSONObject
+    //REFERENCE: JsonSerializationDemo
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("exerciseLogs", dayLogsToJson());
+
+        return json;
+    }
+
+    //EFFECT: return multiple dayLogs to JSONArray
+    //REFERENCE: JsonSerializationDemo
+    private JSONArray dayLogsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (DayLog log : exerciseLog) {
+            jsonArray.put(log.toJson());
+        }
+
+        return jsonArray;
     }
 }
 

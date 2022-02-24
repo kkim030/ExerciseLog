@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 // DayLog is each exercise diary logged under the profile
-public class DayLog {
+public class DayLog implements Writable {
 
     private String notes;
     private int day;
@@ -51,12 +54,19 @@ public class DayLog {
         return getMonth() + "/" + getDay() + "/" + getYear();
     }
 
-
-
-
-
-
-
+    @Override
+    //EFFECT puts the details of DayLog toJson
+    //REFERENCE JsonSerializationDemo
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("type", type);
+        json.put("day", day);
+        json.put("month", month);
+        json.put("year", year);
+        json.put("notes", notes);
+        json.put("logNumber", logNumber);
+        return json;
+    }
 }
 
 

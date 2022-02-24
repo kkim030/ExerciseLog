@@ -15,7 +15,7 @@ class ProfileTest {
 
     @BeforeEach
     public void setUp() {
-        mainProfile = new Profile("Kelly Kim", 18, 120);
+        mainProfile = new Profile("Kelly Kim", "18", "120");
 
         log1 = new DayLog(ExerciseType.PUSH, 1, 3, 2022, "new record 198ibs leg press", 3);
         log2 = new DayLog(ExerciseType.PULL, 2, 10, 2021, "Very tired today - weak performance", 99);

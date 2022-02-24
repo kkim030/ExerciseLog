@@ -5,29 +5,40 @@ package ui;
 import model.DayLog;
 import model.ExerciseType;
 import model.Profile;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.Random;
 
 public class FitMe {
 
+    private static final String JSON_LOCATION = "./data/profile.json";
     private static final String VIEW_PROFILE = "v";
     private static final String ADD_NEW_DAYLOG = "a";
     private static final String VIEW_ALL_DAYLOG = "e";
     private static final String QUIT_COMMAND = "q";
     private static final String DELETE_EVENT = "d";
+    private static final String SAVE_EVENTS = "s";
+    private static final String LOAD_EVENTS = "l";
 
     private Scanner input;
     private Profile myProfile;
     private DayLog newDayLog;
     private boolean runProgram;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private Random rand = new Random();
 
     //EFFECTS: runs the FitMe application
     //REFERENCE: FitLifeGymKiosk Code
-    public FitMe() {
+    public FitMe() throws FileNotFoundException {
         input = new Scanner(System.in);
         runProgram = true;
+        jsonWriter = new JsonWriter(JSON_LOCATION);
+        jsonReader = new JsonReader(JSON_LOCATION);
         runFitMe();
     }
 
@@ -38,6 +49,8 @@ public class FitMe {
                 + "\ta -> to add a daily exercise log"
                 + "\td -> to delete previous exercise log"
                 + "\te -> to view all exercise logs"
+                + "\ts -> save all exercise logs to file"
+                + "\tl -> load previous exercise logs from file"
                 + "\tq -> to quit");
     }
 
@@ -69,6 +82,7 @@ public class FitMe {
         }
     }
 
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     //MODIFIES: this
     //EFFECTS: prints menu options and info depending on input string
     //REFERENCE: FitLifeGymKiosk Code
@@ -86,6 +100,12 @@ public class FitMe {
                     break;
                 case DELETE_EVENT:
                     deleteDayLog();
+                    break;
+                case SAVE_EVENTS:
+                    saveExerciseLogs();
+                    break;
+                case LOAD_EVENTS:
+                    loadProfileInfo();
                     break;
                 default:
                     System.out.println("Sorry, I didn't understand that command. Please try again.");
@@ -106,11 +126,11 @@ public class FitMe {
                 System.out.println("What is your name?");
                 String name = input.nextLine();
                 System.out.println("What is your age?");
-                String ageString = input.nextLine();
-                int age = Integer.parseInt(ageString);
+                String age = input.nextLine();
+
                 System.out.println("What is your current weight(ibs)?");
-                String weightString = input.nextLine();
-                int weight = Integer.parseInt(weightString);
+                String weight = input.nextLine();
+
                 myProfile = new Profile(name, age, weight);
                 System.out.println("Thank you for updating your profile " + myProfile.getName() + "!");
                 break;
@@ -168,6 +188,29 @@ public class FitMe {
         }
         System.out.println("You have exercised: " + myProfile.countDayLog() + " time(s)");
         printInstructions();
+    }
+
+    //EFFECTS: saves exercise logs to file
+    private void saveExerciseLogs() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(myProfile);
+            jsonWriter.close();
+            System.out.println("Saved!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot save file.");
+        }
+    }
+
+    //MODIFIES: this
+    // EFFECTS: loads logs from file
+    private void loadProfileInfo() {
+        try {
+            myProfile = jsonReader.read();
+            System.out.println("Loaded profile");
+        } catch (IOException e) {
+            System.out.println("unable to find exercise history :( ");
+        }
     }
 
     //MODIFIES: this
