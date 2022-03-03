@@ -3,7 +3,7 @@ package persistence;
 import model.DayLog;
 import model.ExerciseType;
 import model.Profile;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 import java.io.IOException;

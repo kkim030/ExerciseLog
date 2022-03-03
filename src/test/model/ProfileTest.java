@@ -26,8 +26,8 @@ class ProfileTest {
     @Test
     public void testConstructor() {
         assertEquals("Kelly Kim", mainProfile.getName());
-        assertEquals(18, mainProfile.getAge());
-        assertEquals(120, mainProfile.getWeight());
+        assertEquals("18", mainProfile.getAge());
+        assertEquals("120", mainProfile.getWeight());
         assertEquals(0, mainProfile.getExerciseLog().size());
     }
 

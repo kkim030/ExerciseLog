@@ -3,15 +3,14 @@ package persistence;
 import model.DayLog;
 import model.ExerciseType;
 import model.Profile;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
 
 import java.io.IOException;
 import java.util.List;
 
-import static junit.framework.TestCase.fail;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonReaderTest extends JsonTest {
 
@@ -49,11 +48,11 @@ public class JsonReaderTest extends JsonTest {
             assertEquals("9", profile.getAge());
             assertEquals("130", profile.getWeight());
             List<DayLog> dayLogs = profile.getExerciseLog();
-            Assertions.assertEquals(2, dayLogs.size());
+            assertEquals(2, dayLogs.size());
             checkDayLog(ExerciseType.PUSH, 9, 8, 1994, "DSLFKN", 92, dayLogs.get(0));
             checkDayLog(ExerciseType.PULL, 80, 9, 2020, "HELLO WORLD", 90, dayLogs.get(1));
         } catch (IOException e) {
-            Assertions.fail("Couldn't read from file");
+            fail("Couldn't read from file");
         }
     }
 
