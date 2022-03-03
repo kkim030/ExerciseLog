@@ -88,32 +88,24 @@ public class FitMe {
     //REFERENCE: FitLifeGymKiosk Code
     private void parseInput(String str) {
         if (str.length() > 0) {
-            switch (str) {
-                case VIEW_PROFILE:
-                    viewProfile();
-                    break;
-                case ADD_NEW_DAYLOG:
-                    addDayLog();
-                    break;
-                case VIEW_ALL_DAYLOG:
-                    viewDayLog();
-                    break;
-                case DELETE_EVENT:
-                    deleteDayLog();
-                    break;
-                case SAVE_EVENTS:
-                    saveExerciseLogs();
-                    break;
-                case LOAD_EVENTS:
-                    loadProfileInfo();
-                    break;
-                default:
-                    System.out.println("Sorry, I didn't understand that command. Please try again.");
-                    break;
-                case QUIT_COMMAND:
-                    endProgram();
-                    runProgram = false;
-                    break;
+            if (str.equals(VIEW_PROFILE)) {
+                viewProfile();
+            } else if (str.equals(ADD_NEW_DAYLOG)) {
+                addDayLog();
+            } else if (str.equals(VIEW_ALL_DAYLOG)) {
+                viewDayLog();
+            } else if (str.equals(DELETE_EVENT)) {
+                deleteDayLog();
+            } else if (str.equals(SAVE_EVENTS)) {
+                saveExerciseLogs();
+            } else if (str.equals(LOAD_EVENTS)) {
+                loadProfileInfo();
+            } else if (str.equals(QUIT_COMMAND)) {
+                endProgram();
+                runProgram = false;
+            } else {
+                System.out.println("Sorry, I didn't understand that command. Please try again.");
+
             }
         }
     }

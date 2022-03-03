@@ -34,6 +34,6 @@ USER STORIES:
 - As a user, I want to log multiple daily workouts under my personal profile.
 - As a user, I want to view all the past daily workouts details and count to track the total workouts performed.
 - As a user, I want to delete an entry I have logged in previously.
-- As a user, when I select the quit option from the application menu, I want to be reminded to save my to-do list to file and have the option to do so or not.
-- As a user, when I start the application, I want to be given the option to load my to-do list from file.
+- As a user, when I select the quit option from the application menu, I want to be able to save my to-do list to file and have the option to do so or not.
+- As a user, when I start the application again, I want to be given the option to load my to-do list from file.
 
