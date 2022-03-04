@@ -32,8 +32,8 @@ public class FitMe {
     private JsonReader jsonReader;
     private Random rand = new Random();
 
-    //EFFECTS: runs the FitMe application
-    //REFERENCE: FitLifeGymKiosk Code
+    // EFFECTS: runs the FitMe application
+    // REFERENCE: FitLifeGymKiosk Code
     public FitMe() throws FileNotFoundException {
         input = new Scanner(System.in);
         runProgram = true;
@@ -42,7 +42,7 @@ public class FitMe {
         runFitMe();
     }
 
-    //EFFECTS: prints instructions to use the app
+    // EFFECTS: prints instructions to use the app
     private void printInstructions() {
         System.out.println("Please choose between the following: \n "
                 + "\tv -> to view your profile"
@@ -54,7 +54,7 @@ public class FitMe {
                 + "\tq -> to quit");
     }
 
-    //EFFECTS: prints welcome message
+    // EFFECTS: prints welcome message
     private void printWelcomeMessage() {
         System.out.println("Welcome to Fit!me, an exercise diary for you to achieve your physical goals!"
         );
@@ -82,10 +82,10 @@ public class FitMe {
         }
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
-    //MODIFIES: this
-    //EFFECTS: prints menu options and info depending on input string
-    //REFERENCE: FitLifeGymKiosk Code
+
+    // MODIFIES: this
+    // EFFECTS: prints menu options and info depending on input string
+    // REFERENCE: FitLifeGymKiosk Code
     private void parseInput(String str) {
         if (str.length() > 0) {
             if (str.equals(VIEW_PROFILE)) {
@@ -105,13 +105,12 @@ public class FitMe {
                 runProgram = false;
             } else {
                 System.out.println("Sorry, I didn't understand that command. Please try again.");
-
             }
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: generates new profile. If wrong input, starts again.
+    // MODIFIES: this
+    // EFFECTS: generates new profile. If wrong input, starts again.
     private void generateProfile() {
         while (true) {
             try {
@@ -132,15 +131,15 @@ public class FitMe {
         }
     }
 
-    //EFFECT: view current profile
+    // EFFECT: view current profile
     private void viewProfile() {
         System.out.println("Hello " + myProfile.getName() + ":");
         System.out.println("    - Age: " + myProfile.getAge());
         System.out.println(("    - Weight: " + myProfile.getWeight() + "ibs"));
     }
 
-    //MODIFIES: this
-    //EFFECT: Make new DayLog. If invalid, prints statement to note the entered input it wrong and restarts.
+    // MODIFIES: this
+    // EFFECT: Make new DayLog. If invalid, prints statement to note the entered input it wrong and restarts.
     private void addDayLog() {
         while (true) {
             try {
@@ -167,7 +166,7 @@ public class FitMe {
         }
     }
 
-    //EFFECT: view historical exercise day logs and counts how many days you have exercised.
+    // EFFECT: view historical exercise day logs and counts how many days you have exercised.
     private void viewDayLog() {
         System.out.println("You have exercised the following dates: (Month/Day/Year)");
         if (myProfile.getExerciseLog().isEmpty()) {
@@ -182,7 +181,8 @@ public class FitMe {
         printInstructions();
     }
 
-    //EFFECTS: saves exercise logs to file
+    // EFFECTS: saves exercise logs to file
+    // REFERENCE: JsonSerializationDemo
     private void saveExerciseLogs() {
         try {
             jsonWriter.open();
@@ -194,8 +194,9 @@ public class FitMe {
         }
     }
 
-    //MODIFIES: this
+    // MODIFIES: this
     // EFFECTS: loads logs from file
+    // REFERENCE: JsonSerializationDemo
     private void loadProfileInfo() {
         try {
             myProfile = jsonReader.read();
@@ -205,9 +206,9 @@ public class FitMe {
         }
     }
 
-    //MODIFIES: this
-    //EFFECT: By inputting log number of past day log, removes the particular entry.
-    //        If wrong log number entered, goes back to main menu.
+    // MODIFIES: this
+    // EFFECT: By inputting log number of past day log, removes the particular entry.
+    //         If wrong log number entered, goes back to main menu.
     private void deleteDayLog() {
         while (true) {
             try {

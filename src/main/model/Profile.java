@@ -16,6 +16,8 @@ public class Profile implements Writable {
     private ArrayList<DayLog> exerciseLog;
     private DayLog daylog;
 
+    //Constructor
+    //EFFECT: constructs profile information
     public Profile(String name, String age, String weight) {
         this.name = name;
         this.age = age;
@@ -70,7 +72,7 @@ public class Profile implements Writable {
     }
 
     @Override
-    //EFFECT: returns name and daylogs to JSONObject
+    //EFFECT: returns name and dayLogs to JSONObject
     //REFERENCE: JsonSerializationDemo
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

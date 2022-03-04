@@ -15,6 +15,8 @@ public class DayLog implements Writable {
     private ExerciseType type;
     private int logNumber;
 
+    // Constructor
+    // EFFECTS: constructs DayLog class that records the exercise details
     public DayLog(ExerciseType type, int day, int month, int year, String notes, int logNumber) {
         this.type = type;
         this.day = day;
@@ -55,8 +57,8 @@ public class DayLog implements Writable {
     }
 
     @Override
-    //EFFECT puts the details of DayLog toJson
-    //REFERENCE JsonSerializationDemo
+    //EFFECT: puts the details of DayLog toJson
+    //REFERENCE: JsonSerializationDemo
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("type", type);

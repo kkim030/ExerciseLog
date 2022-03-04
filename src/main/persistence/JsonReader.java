@@ -17,11 +17,13 @@ public class JsonReader {
     private String source;
 
     // EFFECT: constructs a JSONReader
+    //REFERENCE: JsonSerializationDemo
     public JsonReader(String source) {
         this.source = source;
     }
 
     // EFFECTS: reads source file as string and returns it
+    //REFERENCE: JsonSerializationDemo
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
@@ -32,15 +34,17 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    //EFFECTS: parses profile from JSON object and returns it
-    // throws IOException if an error occurs reading data from file
+    //EFFECTS: reads Profile from file and returns it;
+    //         throws IOException if an error occurs reading data from file
+    //REFERENCE: JsonSerializationDemo
     public Profile read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseProfile(jsonObject);
     }
 
-    //EFFECTS: parses profile from JSON objects and returns it
+    // EFFECTS: parses profile from JSON objects and returns it
+    // REFERENCE: JsonSerializationDemo
     private Profile parseProfile(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         String age = jsonObject.getString("age");
@@ -52,6 +56,7 @@ public class JsonReader {
 
     // MODIFIES: Profile
     // EFFECTS: parses dayLogs from JSON object and adds them to Profile
+    //REFERENCE: JsonSerializationDemo
     private void addDayLogs(Profile profile, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("exerciseLogs");
         for (Object json : jsonArray) {
