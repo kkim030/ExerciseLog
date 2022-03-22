@@ -71,6 +71,10 @@ public class Profile implements Writable {
         return count;
     }
 
+    public Profile getProfile() {
+        return this;
+    }
+
     @Override
     //EFFECT: returns name and dayLogs to JSONObject
     //REFERENCE: JsonSerializationDemo
@@ -80,7 +84,6 @@ public class Profile implements Writable {
         json.put("age", age);
         json.put("weight", weight);
         json.put("exerciseLogs", dayLogsToJson());
-
         return json;
     }
 

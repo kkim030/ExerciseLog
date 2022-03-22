@@ -1,14 +1,24 @@
 package ui;
 
-import java.io.FileNotFoundException;
+/**
+ * Represents application's main window frame.
+ */
 
 public class Main {
+
+
     public static void main(String[] args) {
-        try {
-            new FitMe();
-        } catch (FileNotFoundException e) {
-            System.out.println("No prior record found");
-        }
+        new MakeProfile();
+//        NewEventLogUI f = new NewEventLogUI();
+//        f.setBounds(300, 300, 700,  500);
+//        f.setTitle("New Event");
+//        f.setVisible(true);
+
+
+
+
+
+
     }
 
 }
