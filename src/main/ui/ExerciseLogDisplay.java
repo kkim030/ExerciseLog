@@ -24,6 +24,7 @@ public class ExerciseLogDisplay extends JFrame {
     private JMenuItem jmiSave;
     private JMenuItem jmiDelete;
     private JMenuItem jmiExit;
+    private DefaultTableModel dtm;
 
 
     public ExerciseLogDisplay() {
@@ -58,7 +59,7 @@ public class ExerciseLogDisplay extends JFrame {
     public void makeTable() {
         // create object of table and table model
         table = new JTable();
-        DefaultTableModel dtm = new DefaultTableModel(0, 0);
+        dtm = new DefaultTableModel(0, 0);
 
         // add header of the table
         String[] header = new String[]{"Day", "Month", "Year", "type", "Log Number", "Notes"};
@@ -72,24 +73,25 @@ public class ExerciseLogDisplay extends JFrame {
             dtm.addRow(new Object[]{"n/a", "n/a", "n/a",
                     "n/a", "n/a", "n/a"});
         } else {
-
-            for (DayLog dayLog : myProfile.getExerciseLog()) {
-                int day = dayLog.getDay();
-                int month = dayLog.getMonth();
-                int year = dayLog.getYear();
-                ExerciseType type = dayLog.getType();
-                int logNumber = dayLog.getLogNumber();
-                String notes = dayLog.getNotes();
-                dtm.addRow(new Object[]{day, month, year,
-                        type, logNumber, notes});
-            }
+            parseLog();
         }
-
         JScrollPane sp = new JScrollPane(table);
         frame.add(sp);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 200);
         frame.setVisible(true);
+    }
+
+    public void parseLog() {
+        for (DayLog dayLog : myProfile.getExerciseLog()) {
+            int day = dayLog.getDay();
+            int month = dayLog.getMonth();
+            int year = dayLog.getYear();
+            ExerciseType type = dayLog.getType();
+            int logNumber = dayLog.getLogNumber();
+            String notes = dayLog.getNotes();
+            dtm.addRow(new Object[]{day, month, year,
+                    type, logNumber, notes});
+        }
     }
 
     public void actionAddExerciseLog() {

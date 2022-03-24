@@ -62,6 +62,15 @@ public class Profile implements Writable {
         return false;
     }
 
+    public boolean findLog(int logNumber) {
+        for (DayLog dayLog : exerciseLog) {
+            if (dayLog.getLogNumber() == logNumber) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // EFFECTS: returns the number of DayLog the profile has entered.
     public int countDayLog() {
         int count = 0;

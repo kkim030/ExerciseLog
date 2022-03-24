@@ -58,7 +58,7 @@ public class EventLogAdd {
         jsonReader = new JsonReader(JSON_LOCATION);
         jsonWriter = new JsonWriter(JSON_LOCATION);
         frame.setSize(500, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         panel.setLayout(null);
         frame.setTitle("New Event");
@@ -150,43 +150,51 @@ public class EventLogAdd {
             public void actionPerformed(ActionEvent e) {
                 try {
                     myProfile = jsonReader.read();
-                    if (e.getSource() == pushButton) {
-                        type = ExerciseType.PUSH;
-                    } else if (e.getSource() == pullButton) {
-                        type = ExerciseType.PULL;
-                    } else if (e.getSource() == legButton) {
-                        type = ExerciseType.LEG;
-                    } else {
-                        type = ExerciseType.GLUTES;
-                    }
+                    buttonValid();
                     parseLogs();
                     myProfile.addExerciseLog(newLog);
                     jsonWriter.open();
                     jsonWriter.write(myProfile);
                     jsonWriter.close();
-                    JOptionPane.showMessageDialog(null, "Data Saved", "Saved!", JOptionPane.INFORMATION_MESSAGE);
+                    clearPane();
                     frame.setVisible(false);
                     frame.dispose();
+                    JOptionPane.showMessageDialog(null, "Data Saved", "Saved!", JOptionPane.INFORMATION_MESSAGE);
                     new ExerciseLogDisplay();
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Profile Not Found", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-
         });
+    }
 
+    private void buttonValid() {
+        if (pushButton.isSelected()) {
+            type = ExerciseType.PUSH;
+        } else if (pullButton.isSelected()) {
+            type = ExerciseType.PULL;
+        } else if (legButton.isSelected()) {
+            type = ExerciseType.LEG;
+        } else {
+            type = ExerciseType.GLUTES;
+        }
+    }
+
+    private void clearPane() {
+        notesText.setText(null);
+        dayText.setText(null);
+        monthText.setText(null);
+        yearText.setText(null);
     }
 
     public void parseLogs() {
-        day = Integer.parseInt(dayText.getText());
-        month = Integer.parseInt(monthText.getText());
-        year = Integer.parseInt(yearText.getText());
+        day = Integer.parseInt(dayText.getText().trim());
+        month = Integer.parseInt(monthText.getText().trim());
+        year = Integer.parseInt(yearText.getText().trim());
         newLogNumber = rand.nextInt(upperbound);
         notes = notesText.getText();
         newLog = new DayLog(type, day, month, year, notes, newLogNumber);
     }
-
-
 
 
 }

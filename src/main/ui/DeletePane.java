@@ -1,7 +1,9 @@
 package ui;
 
+import model.DayLog;
 import model.Profile;
 import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,54 +12,99 @@ import java.io.IOException;
 
 public class DeletePane {
     private JFrame frame;
+    private static JPanel panel = new JPanel();
     private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
     private static final String JSON_LOCATION = "./data/profile.json";
     private JLabel logNumberLabel;
     private JTextField logTextField;
     private JButton deleteButton;
+    int logNumber;
     Profile myProfile;
 
-    // CONSTRUCTOR
+    // MODIFIES: this
+    // EFFECT: Constructs a pane that deletes an event log.
     public DeletePane() {
+        jsonWriter = new JsonWriter(JSON_LOCATION);
         jsonReader = new JsonReader(JSON_LOCATION);
-        try {
-            myProfile = jsonReader.read();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Logs Not Found", "Error", JOptionPane.ERROR_MESSAGE);
-        }
         frame = new JFrame("DELETE LOG");
-        frame.setSize(220, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
+        panel.setLayout(null);
+        frame.add(panel);
+        deleteButton = new JButton("Delete");
+        deleteButton.setBounds(150, 130, 150, 25);
 
         logNumberLabel = new JLabel("Log Number:");
         logNumberLabel.setBounds(10, 20, 150, 25);
-        frame.add(logNumberLabel);
+        panel.add(logNumberLabel);
 
         logTextField = new JTextField(20);
         logTextField.setBounds(100, 20, 165, 25);
-        frame.add(logTextField);
+        panel.add(logTextField);
+        panel.add(deleteButton);
         addDeleteButton();
+        panel.setVisible(true);
         frame.setVisible(true);
-
     }
 
     public void addDeleteButton() {
-        deleteButton = new JButton("Log In");
-        deleteButton.setBounds(150, 130, 150, 25);
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    int logNumber = Integer.parseInt(logTextField.getText());
-                    myProfile.removeLog(logNumber);
-                    JOptionPane.showMessageDialog(null, "Data Deleted", "Deleted!", JOptionPane.INFORMATION_MESSAGE);
-                    new ExerciseLogDisplay();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Event Log not found", "Error", JOptionPane.ERROR_MESSAGE);
+                logNumber = Integer.parseInt(logTextField.getText());
+                readJson();
+                if (myProfile.getExerciseLog().size() == 0) {
+                    clearPane();
+                    JOptionPane.showMessageDialog(null, "No logs to be deleted",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if (myProfile.findLog(logNumber)) {
+                        myProfile.removeLog(logNumber);
+                        writeJson();
+                    } else {
+                        clearPane();
+                        JOptionPane.showMessageDialog(null,
+                                "Event Log not found", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });
     }
 
+    private void writeJson() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(myProfile);
+            jsonWriter.close();
+            clearPane();
+            JOptionPane.showMessageDialog(null, "Data Deleted", "Deleted!",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            clearPane();
+            JOptionPane.showMessageDialog(null,
+                    "No file found. Please restart program.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
+
+    private void readJson() {
+        try {
+            myProfile = jsonReader.read();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Logs Not Found",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+    private void clearPane() {
+        new ExerciseLogDisplay();
+        logTextField.setText(null);
+        frame.setVisible(false);
+        frame.dispose();
+    }
 }

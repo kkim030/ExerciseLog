@@ -95,6 +95,16 @@ class ProfileTest {
         mainProfile.removeLog(3);
         assertEquals(0, mainProfile.countDayLog());
     }
+
+    @Test
+    public void testFindLog() {
+        assertEquals(0, mainProfile.countDayLog());
+        DayLog testDayLog = new DayLog(ExerciseType.PUSH, 2, 12, 2021, "NEW DAY", 13);
+        mainProfile.addExerciseLog(testDayLog);
+        assertEquals(1, mainProfile.countDayLog());
+        assertTrue(mainProfile.findLog(13));
+        assertFalse(mainProfile.findLog(10));
+    }
 }
 
 

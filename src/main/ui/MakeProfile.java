@@ -26,6 +26,7 @@ public class MakeProfile {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private static final String JSON_LOCATION = "./data/profile.json";
+    private String name;
 
     public MakeProfile() {
         jsonWriter = new JsonWriter(JSON_LOCATION);
@@ -70,7 +71,7 @@ public class MakeProfile {
     }
 
     public void addProfileButton() {
-        newProfileButton = new JButton("Make Profile");
+        newProfileButton = new JButton("New Profile");
         newProfileButton.setBounds(10, 130, 150, 25);
         panel.add(newProfileButton);
         actionAddProfile();
@@ -80,7 +81,7 @@ public class MakeProfile {
         newProfileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = userText.getText();
+                String name = userText.getText().trim();
                 String age = ageText.getText();
                 String weight = weightText.getText();
                 myProfile = new Profile(name, age, weight);
@@ -89,6 +90,7 @@ public class MakeProfile {
                     jsonWriter.write(myProfile);
                     jsonWriter.close();
                     JOptionPane.showMessageDialog(null, "Data Saved", "Saved!", JOptionPane.INFORMATION_MESSAGE);
+                    clearPane();
                     frame.setVisible(false);
                     frame.dispose();
                     new MenuBar();
@@ -103,10 +105,12 @@ public class MakeProfile {
         userText.setText(null);
         ageText.setText(null);
         weightText.setText(null);
+        frame.setVisible(false);
+        frame.dispose();
     }
 
     public void logInButton() {
-        logInButton = new JButton("Log In");
+        logInButton = new JButton("Reload");
         logInButton.setBounds(150, 130, 150, 25);
         actionLogInButton();
         panel.add(logInButton);
@@ -117,10 +121,19 @@ public class MakeProfile {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    String name = userText.getText().trim(); //***
                     myProfile = jsonReader.read();
-                    new MenuBar();
+                    if (myProfile.getName().equals(name)) {
+                        JOptionPane.showMessageDialog(null, "Profile loaded", "LOAD", JOptionPane.INFORMATION_MESSAGE);
+                        clearPane();
+                        new MenuBar();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Profile Not Found", "Error", JOptionPane.ERROR_MESSAGE);
+                        clearPane();
+                        new MakeProfile();
+                    }
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Profile Not Found", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Profile Not Found?", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

@@ -4,9 +4,12 @@ import model.Profile;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -15,8 +18,6 @@ public class MenuBar implements ActionListener {
     private JMenu jmFile;
     private JMenuItem jmiOpenLogs;
     private JMenuItem jmiSave;
-    private JMenuItem jmiDelete;
-    private JMenuItem jmiExit;
     private JMenuItem jmiAbout;
     private JMenuItem jmiAdd;
     private  JFrame frame;
@@ -38,9 +39,10 @@ public class MenuBar implements ActionListener {
         jsonLabel = new JsonReader(JSON_LOCATION);
         jsonWriter = new JsonWriter(JSON_LOCATION);
         frame = new JFrame("FitMe! Exercise Diary");
-        frame.setSize(220, 200);
+        frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         displayProfileSetting();
+        displayPic();
         bar = new JMenuBar();
         makeMenuItems();
 
@@ -52,6 +54,16 @@ public class MenuBar implements ActionListener {
 
         frame.setJMenuBar(bar);
         frame.setVisible(true);
+    }
+
+    public void displayPic() {
+        try {
+            BufferedImage myPic = ImageIO.read(new File("./src/image/21464082.jpg"));
+            JLabel picture = new JLabel(new ImageIcon(myPic));
+            frame.add(picture);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Image Not Found", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void displayProfileSetting() {
@@ -76,7 +88,6 @@ public class MenuBar implements ActionListener {
         nullLabel = new JLabel("");
         nullLabel.setBounds(30, 30, 165, 25);
         frame.add(nullLabel);
-
     }
 
     public void addLabels() {
@@ -97,15 +108,11 @@ public class MenuBar implements ActionListener {
         actionOpenExerciseLog();
         jmiSave = new JMenuItem("Save");
         actionOpenSave();
-        jmiDelete = new JMenuItem("Delete");
-        jmiExit = new JMenuItem("Exit");
         jmiAdd = new JMenuItem("Add New Log");
         jmFile.add(jmiOpenLogs);
         jmFile.add(jmiSave);
-        jmFile.add(jmiDelete);
         jmFile.add(jmiAdd);
         jmFile.addSeparator();
-        jmFile.add(jmiExit);
         bar.add(jmFile);
     }
 
@@ -123,11 +130,12 @@ public class MenuBar implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    myProfile = jsonLabel.read();
                     jsonWriter.open();
                     jsonWriter.write(myProfile);
                     jsonWriter.close();
                     JOptionPane.showMessageDialog(null, "Data Saved", "Saved!", JOptionPane.INFORMATION_MESSAGE);
-                } catch (FileNotFoundException ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error saving Data", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -135,12 +143,8 @@ public class MenuBar implements ActionListener {
     }
 
 
-
     public void addActionListeners() {
-        jmiDelete.addActionListener(this);
-        jmiExit.addActionListener(this);
         jmiAbout.addActionListener(this);
-
     }
 
     public void actionPerformed(ActionEvent ae) {
