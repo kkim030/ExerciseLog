@@ -52,7 +52,7 @@ public class EventLogAdd {
 
     private JButton save;
 
-
+    // EFFECT: constructs a frame which adds new exercise logs
     public EventLogAdd() {
         frame = new JFrame();
         jsonReader = new JsonReader(JSON_LOCATION);
@@ -72,6 +72,7 @@ public class EventLogAdd {
         frame.requestFocus();
     }
 
+    // EFFECT: initialize all the labels and text fields
     public void initializeLabelsTexts() {
         title = new JLabel("Please log in your exercise information:");
         types = new JLabel("Exercise Type:");
@@ -86,6 +87,7 @@ public class EventLogAdd {
         yearText = new JTextField();
     }
 
+    // EFFECT: initialize all the jradio buttons and set bounds
     public void initializeSetButtons() {
         pushButton = new JRadioButton("PUSH");
         pullButton = new JRadioButton("PULL");
@@ -98,6 +100,7 @@ public class EventLogAdd {
         glutesButton.setBounds(490, 30, 120, 50);
     }
 
+    // EFFECT: set bounds for all labels and texts
     public void setBoundsLabelsTexts() {
         title.setBounds(20, 5, 300, 50);
         types.setBounds(20, 30, 100, 50);
@@ -112,6 +115,7 @@ public class EventLogAdd {
         notesText.setBounds(120, 162, 200, 25);
     }
 
+    // EFFECT: add labels and texts to panel
     public void addLabelsTexts() {
         panel.add(title);
         panel.add(types);
@@ -126,6 +130,7 @@ public class EventLogAdd {
         panel.add(notesText);
     }
 
+    // EFFECT: add buttons to panel and buttons to group
     public void addButtons() {
         panel.add(pushButton);
         panel.add(pullButton);
@@ -137,6 +142,7 @@ public class EventLogAdd {
         group.add(glutesButton);
     }
 
+    // EFFECT: add save button
     public void addSave() {
         save = new JButton("Save");
         save.setBounds(118, 196, 100, 30);
@@ -144,6 +150,9 @@ public class EventLogAdd {
         actionSave();
     }
 
+    // MODIFIES: Profile
+    // EFFECT: add the exercise log to Profile and save to json
+    //         if profile not found, return error pane
     public void actionSave() {
         save.addActionListener(new ActionListener() {
             @Override
@@ -168,6 +177,7 @@ public class EventLogAdd {
         });
     }
 
+    // EFFECT: determine which exercise type button is selected
     private void buttonValid() {
         if (pushButton.isSelected()) {
             type = ExerciseType.PUSH;
@@ -180,6 +190,7 @@ public class EventLogAdd {
         }
     }
 
+    // EFFECT: clear all text fields
     private void clearPane() {
         notesText.setText(null);
         dayText.setText(null);
@@ -187,6 +198,9 @@ public class EventLogAdd {
         yearText.setText(null);
     }
 
+    // REQUIRES: day month and year should be Integer
+    // MODIFIES: DayLog
+    // EFFECT: parse exercise log details from text field and make new day log class
     public void parseLogs() {
         day = Integer.parseInt(dayText.getText().trim());
         month = Integer.parseInt(monthText.getText().trim());

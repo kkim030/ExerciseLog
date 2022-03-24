@@ -26,7 +26,8 @@ public class ExerciseLogDisplay extends JFrame {
     private JMenuItem jmiExit;
     private DefaultTableModel dtm;
 
-
+    // MODIFIES: this
+    // EFFECT: makes a table of exercise log reading from json jar
     public ExerciseLogDisplay() {
         frame = new JFrame();
         jsonReader = new JsonReader(JSON_LOCATION);
@@ -43,9 +44,10 @@ public class ExerciseLogDisplay extends JFrame {
         frame.setVisible(true);
         actionAddExerciseLog();
         actionDeleteExerciseLog();
-
     }
 
+    // MODIFIES: this
+    // EFFECT: Adds menu bar with file, add and delete functions
     public void makeMenuItems() {
         jmFile = new JMenu("File");
         jmiAdd = new JMenuItem("Add");
@@ -55,7 +57,8 @@ public class ExerciseLogDisplay extends JFrame {
         bar.add(jmFile);
     }
 
-
+    // MODIFIES: this
+    // EFFECT: implements headers and reads the jar. if no data, n/a is shown for all fields
     public void makeTable() {
         // create object of table and table model
         table = new JTable();
@@ -81,6 +84,8 @@ public class ExerciseLogDisplay extends JFrame {
         frame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECT: parse log information from jar and add onto the table
     public void parseLog() {
         for (DayLog dayLog : myProfile.getExerciseLog()) {
             int day = dayLog.getDay();
@@ -94,6 +99,8 @@ public class ExerciseLogDisplay extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: opens the add event log add frame and close the current frame
     public void actionAddExerciseLog() {
         jmiAdd.addActionListener(new ActionListener() {
             @Override
@@ -105,6 +112,8 @@ public class ExerciseLogDisplay extends JFrame {
         });
     }
 
+    // MODIFIES: this
+    // EFFECT: opens delete log frame and close the current frame
     public void actionDeleteExerciseLog() {
         jmiDelete.addActionListener(new ActionListener() {
             @Override

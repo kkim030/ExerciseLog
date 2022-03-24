@@ -10,16 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class MenuBar implements ActionListener {
+public class MenuBar  {
     private JMenuBar bar;
     private JMenu jmFile;
     private JMenuItem jmiOpenLogs;
     private JMenuItem jmiSave;
-    private JMenuItem jmiAbout;
-    private JMenuItem jmiAdd;
     private  JFrame frame;
     private JsonWriter jsonWriter;
 
@@ -34,7 +31,8 @@ public class MenuBar implements ActionListener {
     private JsonReader jsonLabel;
     private static final String JSON_LOCATION = "./data/profile.json";
 
-
+    // MODIFIES: this
+    // EFFECT: make the main menu bar that displays profile information
     public MenuBar() {
         jsonLabel = new JsonReader(JSON_LOCATION);
         jsonWriter = new JsonWriter(JSON_LOCATION);
@@ -45,17 +43,12 @@ public class MenuBar implements ActionListener {
         displayPic();
         bar = new JMenuBar();
         makeMenuItems();
-
-        JMenu jmHelp = new JMenu("Help");
-        jmiAbout = new JMenuItem("About");
-        jmHelp.add(jmiAbout);
-        bar.add(jmHelp);
-        addActionListeners();
-
         frame.setJMenuBar(bar);
         frame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECT: Adds main picture
     public void displayPic() {
         try {
             BufferedImage myPic = ImageIO.read(new File("./src/image/21464082.jpg"));
@@ -66,6 +59,9 @@ public class MenuBar implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: display Profile information
+    //         if Profile not found, error pane is shown
     public void displayProfileSetting() {
         addLabels();
         try {
@@ -90,6 +86,8 @@ public class MenuBar implements ActionListener {
         frame.add(nullLabel);
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize and add labels
     public void addLabels() {
         userLabel = new JLabel("Name:");
         userLabel.setBounds(30, 30, 165, 25);
@@ -102,20 +100,21 @@ public class MenuBar implements ActionListener {
         frame.add(weightLabel);
     }
 
+    // MODIFIES: this
+    // EFFECT: make menu bar items
     public void makeMenuItems() {
         jmFile = new JMenu("File");
         jmiOpenLogs = new JMenuItem("Open Exercise Log Records");
         actionOpenExerciseLog();
         jmiSave = new JMenuItem("Save");
         actionOpenSave();
-        jmiAdd = new JMenuItem("Add New Log");
         jmFile.add(jmiOpenLogs);
         jmFile.add(jmiSave);
-        jmFile.add(jmiAdd);
         jmFile.addSeparator();
         bar.add(jmFile);
     }
 
+    // EFFECT: open new Exercise Log Display
     public void actionOpenExerciseLog() {
         jmiOpenLogs.addActionListener(new ActionListener() {
             @Override
@@ -125,6 +124,8 @@ public class MenuBar implements ActionListener {
         });
     }
 
+    // EFFECT: save all Profile information to file. if saved, "saved!" pane opens.
+    //         if file path is wrong, error pane is shown.
     public void actionOpenSave() {
         jmiSave.addActionListener(new ActionListener() {
             @Override
@@ -140,15 +141,5 @@ public class MenuBar implements ActionListener {
                 }
             }
         });
-    }
-
-
-    public void addActionListeners() {
-        jmiAbout.addActionListener(this);
-    }
-
-    public void actionPerformed(ActionEvent ae) {
-        String comStr = ae.getActionCommand();
-        System.out.println(comStr + " Selected");
     }
 }

@@ -22,7 +22,7 @@ public class DeletePane {
     int logNumber;
     Profile myProfile;
 
-    // MODIFIES: this
+
     // EFFECT: Constructs a pane that deletes an event log.
     public DeletePane() {
         jsonWriter = new JsonWriter(JSON_LOCATION);
@@ -49,6 +49,10 @@ public class DeletePane {
         frame.setVisible(true);
     }
 
+
+    // EFFECT: deletes the exercise log with the log number entered
+    //         if there are no logs, return "No logs to be deleted."
+    //         if no exercise log with the same exercise number, return "event log not found"
     public void addDeleteButton() {
         deleteButton.addActionListener(new ActionListener() {
             @Override
@@ -74,6 +78,7 @@ public class DeletePane {
         });
     }
 
+    // EFFECT: write to jsonWriter when event log
     private void writeJson() {
         try {
             jsonWriter.open();
@@ -90,7 +95,7 @@ public class DeletePane {
         }
     }
 
-
+    // EFFECT: read json and return error pane if not logs not found.
     private void readJson() {
         try {
             myProfile = jsonReader.read();
@@ -100,7 +105,7 @@ public class DeletePane {
         }
     }
 
-
+    // EFFECT: clear the text fields and close the frame.
     private void clearPane() {
         new ExerciseLogDisplay();
         logTextField.setText(null);

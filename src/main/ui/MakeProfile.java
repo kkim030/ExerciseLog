@@ -28,6 +28,7 @@ public class MakeProfile {
     private static final String JSON_LOCATION = "./data/profile.json";
     private String name;
 
+    // EFFECT: makes MakeProfile frame
     public MakeProfile() {
         jsonWriter = new JsonWriter(JSON_LOCATION);
         jsonReader = new JsonReader(JSON_LOCATION);
@@ -40,6 +41,7 @@ public class MakeProfile {
         frame.setVisible(true);
     }
 
+    // EFFECT: initiates labels, set bounds and add to panel
     public void newProfile() {
         userName = new JLabel("Name");
         userName.setBounds(10, 20, 80, 25);
@@ -70,6 +72,7 @@ public class MakeProfile {
 
     }
 
+    // EFFECT: add new button for new profile
     public void addProfileButton() {
         newProfileButton = new JButton("New Profile");
         newProfileButton.setBounds(10, 130, 150, 25);
@@ -77,6 +80,9 @@ public class MakeProfile {
         actionAddProfile();
     }
 
+    // MODIFIES: Profile
+    // EFFECT: adds new profile to jar
+    //         if file path not found, error pane is shown
     public void actionAddProfile() {
         newProfileButton.addActionListener(new ActionListener() {
             @Override
@@ -101,6 +107,8 @@ public class MakeProfile {
         });
     }
 
+    // MODIFIES: this
+    // EFFECT: clears all text fields
     private void clearPane() {
         userText.setText(null);
         ageText.setText(null);
@@ -109,6 +117,7 @@ public class MakeProfile {
         frame.dispose();
     }
 
+    // EFFECT: initialize, set bounds and add "Reload" button
     public void logInButton() {
         logInButton = new JButton("Reload");
         logInButton.setBounds(150, 130, 150, 25);
@@ -116,12 +125,14 @@ public class MakeProfile {
         panel.add(logInButton);
     }
 
+    // EFFECT: loads Profile information
+    //         if profile not found, error pane is shown
     public void actionLogInButton() {
         logInButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String name = userText.getText().trim(); //***
+                    String name = userText.getText().trim();
                     myProfile = jsonReader.read();
                     if (myProfile.getName().equals(name)) {
                         JOptionPane.showMessageDialog(null, "Profile loaded", "LOAD", JOptionPane.INFORMATION_MESSAGE);
