@@ -80,9 +80,7 @@ public class Profile implements Writable {
         return count;
     }
 
-    public Profile getProfile() {
-        return this;
-    }
+
 
     @Override
     //EFFECT: returns name and dayLogs to JSONObject
