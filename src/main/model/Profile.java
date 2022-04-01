@@ -14,7 +14,6 @@ public class Profile implements Writable {
     private String age;
     private String weight;
     private ArrayList<DayLog> exerciseLog;
-    private DayLog daylog;
 
     //Constructor
     //EFFECT: constructs profile information
@@ -47,6 +46,8 @@ public class Profile implements Writable {
     // exercise log
     public void addExerciseLog(DayLog log) {
         this.exerciseLog.add(log);
+        EventLog.getInstance().logEvent(new Event("Event added to Profile."));
+
     }
 
     // REQUIRES: exerciseLog must be a non-empty list
@@ -56,12 +57,15 @@ public class Profile implements Writable {
         for (DayLog dayLog : exerciseLog) {
             if (dayLog.getLogNumber() == logNumber) {
                 exerciseLog.remove(dayLog);
+                EventLog.getInstance().logEvent(new Event("Event deleted from Profile."));
                 return true;
             }
         }
         return false;
     }
 
+    //REQUIRES: exercise Log must be a non-empty list.
+    //EFFECTS: find exercise log with the logNumber
     public boolean findLog(int logNumber) {
         for (DayLog dayLog : exerciseLog) {
             if (dayLog.getLogNumber() == logNumber) {
@@ -79,8 +83,6 @@ public class Profile implements Writable {
         }
         return count;
     }
-
-
 
     @Override
     //EFFECT: returns name and dayLogs to JSONObject
@@ -102,10 +104,10 @@ public class Profile implements Writable {
         for (DayLog log : exerciseLog) {
             jsonArray.put(log.toJson());
         }
-
         return jsonArray;
     }
 }
+
 
 
 

@@ -1,6 +1,8 @@
 package persistence;
 
 import model.DayLog;
+import model.Event;
+import model.EventLog;
 import model.Profile;
 import org.json.JSONObject;
 
@@ -50,6 +52,8 @@ public class JsonWriter {
     public void write(Profile myProfile) {
         JSONObject json = myProfile.toJson();
         saveToFile(json.toString());
+
+
     }
 
 

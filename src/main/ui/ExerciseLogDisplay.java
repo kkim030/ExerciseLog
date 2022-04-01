@@ -9,33 +9,24 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
-
+//Displays Exercise logs in a table
 public class ExerciseLogDisplay extends JFrame {
-    private static final String JSON_LOCATION = "./data/profile.json";
     private Profile myProfile;
     private JFrame frame;
     private JTable table;
-    private JsonReader jsonReader;
     private JMenuBar bar;
     private JMenu jmFile;
     private JMenuItem jmiAdd;
-    private JMenuItem jmiSave;
     private JMenuItem jmiDelete;
-    private JMenuItem jmiExit;
     private DefaultTableModel dtm;
+
 
     // MODIFIES: this
     // EFFECT: makes a table of exercise log reading from json jar
-    public ExerciseLogDisplay() {
+    public ExerciseLogDisplay(Profile myProfile) {
+        this.myProfile = myProfile;
         frame = new JFrame();
-        jsonReader = new JsonReader(JSON_LOCATION);
-        try {
-            myProfile = jsonReader.read();
-        } catch (IOException e) {
-            System.out.println("unable");
-        }
         frame.setTitle("* Diary *");
         makeTable();
         bar = new JMenuBar();
@@ -107,7 +98,7 @@ public class ExerciseLogDisplay extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 frame.dispose();
-                new EventLogAdd();
+                new EventLogAdd(myProfile);
             }
         });
     }
@@ -120,7 +111,7 @@ public class ExerciseLogDisplay extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 frame.dispose();
-                new DeletePane();
+                new DeletePane(myProfile);
             }
         });
     }

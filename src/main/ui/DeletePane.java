@@ -1,6 +1,5 @@
 package ui;
 
-import model.DayLog;
 import model.Profile;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -8,14 +7,12 @@ import persistence.JsonWriter;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
+// Makes a pane where you can input the log number and can then delete the exerciseType
 public class DeletePane {
+
     private JFrame frame;
     private static JPanel panel = new JPanel();
-    private JsonReader jsonReader;
-    private JsonWriter jsonWriter;
-    private static final String JSON_LOCATION = "./data/profile.json";
     private JLabel logNumberLabel;
     private JTextField logTextField;
     private JButton deleteButton;
@@ -24,9 +21,8 @@ public class DeletePane {
 
 
     // EFFECT: Constructs a pane that deletes an event log.
-    public DeletePane() {
-        jsonWriter = new JsonWriter(JSON_LOCATION);
-        jsonReader = new JsonReader(JSON_LOCATION);
+    public DeletePane(Profile myProfile) {
+        this.myProfile = myProfile;
         frame = new JFrame("DELETE LOG");
         frame.setSize(500, 300);
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -58,7 +54,6 @@ public class DeletePane {
             @Override
             public void actionPerformed(ActionEvent e) {
                 logNumber = Integer.parseInt(logTextField.getText());
-                readJson();
                 if (myProfile.getExerciseLog().size() == 0) {
                     clearPane();
                     JOptionPane.showMessageDialog(null, "No logs to be deleted",
@@ -66,7 +61,10 @@ public class DeletePane {
                 } else {
                     if (myProfile.findLog(logNumber)) {
                         myProfile.removeLog(logNumber);
-                        writeJson();
+                        clearPane();
+                        JOptionPane.showMessageDialog(null, "Data Deleted", "Deleted!",
+                                JOptionPane.INFORMATION_MESSAGE);
+
                     } else {
                         clearPane();
                         JOptionPane.showMessageDialog(null,
@@ -78,36 +76,9 @@ public class DeletePane {
         });
     }
 
-    // EFFECT: write to jsonWriter when event log
-    private void writeJson() {
-        try {
-            jsonWriter.open();
-            jsonWriter.write(myProfile);
-            jsonWriter.close();
-            clearPane();
-            JOptionPane.showMessageDialog(null, "Data Deleted", "Deleted!",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ex) {
-            clearPane();
-            JOptionPane.showMessageDialog(null,
-                    "No file found. Please restart program.", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    // EFFECT: read json and return error pane if not logs not found.
-    private void readJson() {
-        try {
-            myProfile = jsonReader.read();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Logs Not Found",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
     // EFFECT: clear the text fields and close the frame.
     private void clearPane() {
-        new ExerciseLogDisplay();
+        new ExerciseLogDisplay(myProfile);
         logTextField.setText(null);
         frame.setVisible(false);
         frame.dispose();

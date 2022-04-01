@@ -1,8 +1,6 @@
 package persistence;
 
-import model.DayLog;
-import model.ExerciseType;
-import model.Profile;
+import model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -41,6 +39,7 @@ public class JsonReader {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseProfile(jsonObject);
+
     }
 
     // EFFECTS: parses profile from JSON objects and returns it
@@ -76,5 +75,6 @@ public class JsonReader {
         int logNumber = jsonObject.getInt("logNumber");
         DayLog newLog = new DayLog(type, day, month, year, notes, logNumber);
         profile.addExerciseLog(newLog);
+
     }
 }

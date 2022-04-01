@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.Random;
 
+// Runs the FitMe console application
 public class FitMe {
 
     private static final String JSON_LOCATION = "./data/profile.json";

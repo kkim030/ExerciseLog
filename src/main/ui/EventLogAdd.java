@@ -9,10 +9,11 @@ import persistence.JsonWriter;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.Random;
 
+// Develops a pane where you can add Day Log by inputting exercise log details
 public class EventLogAdd {
+
     private static JFrame frame;
     private static JPanel panel = new JPanel();
 
@@ -25,7 +26,6 @@ public class EventLogAdd {
     int month;
     int year;
     int newLogNumber;
-
 
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -53,12 +53,12 @@ public class EventLogAdd {
     private JButton save;
 
     // EFFECT: constructs a frame which adds new exercise logs
-    public EventLogAdd() {
+    public EventLogAdd(Profile myProfile) {
+        this.myProfile = myProfile;
         frame = new JFrame();
         jsonReader = new JsonReader(JSON_LOCATION);
         jsonWriter = new JsonWriter(JSON_LOCATION);
         frame.setSize(500, 300);
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         panel.setLayout(null);
         frame.setTitle("New Event");
@@ -151,28 +151,18 @@ public class EventLogAdd {
     }
 
     // MODIFIES: Profile
-    // EFFECT: add the exercise log to Profile and save to json
-    //         if profile not found, return error pane
+    // EFFECT: add the exercise log to Profile
     public void actionSave() {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    myProfile = jsonReader.read();
                     buttonValid();
                     parseLogs();
                     myProfile.addExerciseLog(newLog);
-                    jsonWriter.open();
-                    jsonWriter.write(myProfile);
-                    jsonWriter.close();
                     clearPane();
                     frame.setVisible(false);
                     frame.dispose();
-                    JOptionPane.showMessageDialog(null, "Data Saved", "Saved!", JOptionPane.INFORMATION_MESSAGE);
-                    new ExerciseLogDisplay();
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Profile Not Found", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                    new ExerciseLogDisplay(myProfile);
             }
         });
     }

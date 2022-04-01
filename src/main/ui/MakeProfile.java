@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// makes pane to make profile
 public class MakeProfile {
 
     private static JLabel userName;
@@ -26,7 +27,7 @@ public class MakeProfile {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private static final String JSON_LOCATION = "./data/profile.json";
-    private String name;
+
 
     // EFFECT: makes MakeProfile frame
     public MakeProfile() {
@@ -99,7 +100,7 @@ public class MakeProfile {
                     clearPane();
                     frame.setVisible(false);
                     frame.dispose();
-                    new MenuBar();
+                    new MenuBar(myProfile);
                 } catch (FileNotFoundException ex) {
                     JOptionPane.showMessageDialog(null, "Error saving Data", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -137,7 +138,7 @@ public class MakeProfile {
                     if (myProfile.getName().equals(name)) {
                         JOptionPane.showMessageDialog(null, "Profile loaded", "LOAD", JOptionPane.INFORMATION_MESSAGE);
                         clearPane();
-                        new MenuBar();
+                        new MenuBar(myProfile);
                     } else {
                         JOptionPane.showMessageDialog(null, "Profile Not Found", "Error", JOptionPane.ERROR_MESSAGE);
                         clearPane();

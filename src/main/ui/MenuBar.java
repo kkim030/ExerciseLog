@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Profile;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -8,17 +10,22 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class MenuBar  {
+
+//makes the main menubar where you can access all events
+public class MenuBar {
     private JMenuBar bar;
     private JMenu jmFile;
     private JMenuItem jmiOpenLogs;
     private JMenuItem jmiSave;
-    private  JFrame frame;
+    private JFrame frame;
     private JsonWriter jsonWriter;
+
 
     private Profile myProfile;
     private JLabel userLabel;
@@ -33,7 +40,8 @@ public class MenuBar  {
 
     // MODIFIES: this
     // EFFECT: make the main menu bar that displays profile information
-    public MenuBar() {
+    public MenuBar(Profile myProfile) {
+        this.myProfile = myProfile;
         jsonLabel = new JsonReader(JSON_LOCATION);
         jsonWriter = new JsonWriter(JSON_LOCATION);
         frame = new JFrame("FitMe! Exercise Diary");
@@ -45,6 +53,18 @@ public class MenuBar  {
         makeMenuItems();
         frame.setJMenuBar(bar);
         frame.setVisible(true);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+                super.windowClosing(e);
+                for (Event event : EventLog.getInstance()) {
+                    System.out.println(event.getDescription());
+                }
+            }
+
+        });
+
     }
 
     // MODIFIES: this
@@ -119,7 +139,7 @@ public class MenuBar  {
         jmiOpenLogs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ExerciseLogDisplay();
+                new ExerciseLogDisplay(myProfile);
             }
         });
     }
@@ -131,7 +151,6 @@ public class MenuBar  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    myProfile = jsonLabel.read();
                     jsonWriter.open();
                     jsonWriter.write(myProfile);
                     jsonWriter.close();

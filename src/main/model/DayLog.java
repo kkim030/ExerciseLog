@@ -14,6 +14,7 @@ public class DayLog implements Writable {
     private int year;
     private ExerciseType type;
     private int logNumber;
+    private String location;
 
     // Constructor
     // EFFECTS: constructs DayLog class that records the exercise details
@@ -69,6 +70,8 @@ public class DayLog implements Writable {
         json.put("logNumber", logNumber);
         return json;
     }
+
+
 }
 
 
