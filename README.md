@@ -37,3 +37,16 @@ USER STORIES:
 - As a user, when I select the quit option from the application menu, I want to be able to save my to-do list to file and have the option to do so or not.
 - As a user, when I start the application again, I want to be given the option to load my to-do list from file.
 
+***Phase 4 Task 2***
+- Sample of events:
+  Event added to Profile.
+  Event added to Profile.
+  Event deleted from Profile.
+
+***Phase 4 Task 3***
+- The association between Profile and DayLog could have been bidirectional.
+- The project could have been improved so that the data saved is not reset when a new name is entered but 
+multiple accounts could be created for more realistic use.
+- According to Single Responsibility Principle, one method should serve one function but for EventLogAdd Class’ 
+actionSave(), the method not only saves but also instantiates the next frame pop up and disposes the current frame. 
+Such functions should have been divided.
