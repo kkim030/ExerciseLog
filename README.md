@@ -14,6 +14,7 @@ it provides 4-day split. For those who feel lethargic to keep themselves active,
 your progress. 
 
 
+
 FEATURES:
 
 - Tap into *your personal workout diary* categorized with the following **split routines:**
@@ -31,8 +32,15 @@ Keep yourself accountable to become and better, stronger self that you dreamed o
 USER STORIES:
 
 - As a user, I want to be able to generate a personal profile.
+<img width="402" alt="image" src="https://user-images.githubusercontent.com/93014710/189044099-d70d0d58-49ec-4f2a-9950-fdab251e75ab.png">
+<img width="611" alt="image" src="https://user-images.githubusercontent.com/93014710/189044146-14a4f642-0363-45c1-99db-e0edcf8e6ab0.png">
+
 - As a user, I want to log multiple daily workouts under my personal profile.
+<img width="502" alt="image" src="https://user-images.githubusercontent.com/93014710/189044211-762f730f-89da-4814-a4ea-de3007ccc738.png">
+
 - As a user, I want to view all the past daily workouts details and count to track the total workouts performed.
+<img width="716" alt="image" src="https://user-images.githubusercontent.com/93014710/189044345-99c98948-25c7-45da-8a61-0735bd041333.png">
+
 - As a user, I want to delete an entry I have logged in previously.
 - As a user, when I select the quit option from the application menu, I want to be able to save my to-do list to file and have the option to do so or not.
 - As a user, when I start the application again, I want to be given the option to load my to-do list from file.
